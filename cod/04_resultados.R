@@ -146,7 +146,22 @@ tabla_estadisticas <- bind_rows(
   stats_finales_nvidia
 )
 
-# 10. Comparación entre precios simulados y reales
+# Preparación de datos para el gráfico comparativo
+
+comparacion_larga <- comparacion_precios %>%
+  select(accion, promedio_simulado, precio_real) %>%
+  pivot_longer(
+    cols = c(promedio_simulado, precio_real),
+    names_to = "tipo",
+    values_to = "precio"
+  ) %>%
+  mutate(
+    tipo = recode(
+      tipo,
+      promedio_simulado = "Simulado",
+      precio_real = "Real"
+    )
+  )
 
 # 10. Comparación entre precios simulados y reales
 
